@@ -1,0 +1,37 @@
+# tool to generate an Annotation
+import os
+import pandas as pd
+from modules.socialevent.GroundTruth import GroundTruth
+from modules.classification.Ontology import Ontology
+from modules.classification.Annotation import Annotation
+
+def main():
+    # Paths
+    HOME = os.path.expanduser('~')
+    
+    
+    datasetsPath = os.path.dir( HOME,'Desktop/projecte')
+    groundTruthFile = 'sed2013_task2_dataset_train_gs.csv'
+    groundTruthPathFile = os.path.join(datasetsPath, groundTruthFile)
+    
+    dataframe_csv = pd.read_csv('%s' % (groundTruthPathFile), sep='\t')
+    _gt_grouped_by_event = dataframe_csv.groupby('gt')
+    
+    # first of all we should to create an ontology object
+    ontology = Ontology()
+    
+    # edit the semanticClass names for each project
+    semanticClasses = ['concert','conference', 'fashion', 'exhibition', 'art']
+    
+    
+    for semanticClasses in _gt_grouped_by_event.groups.keys():
+        ontology.addSemanticClass(semanticClasses) 
+        
+    ontologyPathFile = os.path.join(datasetsPath, 'ontology.p')
+    #PathFileOntology = os.path.join(datasetsPath,'5_ontology','ontology.p')
+    # save the ontology un a pickle file
+    #ontology.saveOntology(PathFileOntology)
+    ontology.saveOntology(ontologyPathFile)
+
+def run():
+    main()
