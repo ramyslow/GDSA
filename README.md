@@ -4,6 +4,13 @@ This project is based on the work done on MediEval 2013 Pyxel code, so the first
 
 In this library, we have different modules and tool for the using and development of our project. Also, we have to download other librarys like OpenCV, Scikit sklearn, Numpy and Scipy.
 
+http://opencv.org/
+http://scikit-learn.org/stable/
+http://www.numpy.org/
+http://www.scipy.org/
+
+__________________________________________
+
 Main Functions, opening the Python editor:
 
 Open "Descriptor.py", run and obtain the decriptor files for each event type. For obtaining the metadata we have 4 files named: Datasets, Vocabulary, Bof and TF-IDF.
