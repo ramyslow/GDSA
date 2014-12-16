@@ -1,0 +1,105 @@
+import numpy as np
+import os
+import pandas as pd
+import pickle
+
+from modules.classification.Annotation import Annotation
+from modules.classification.LabelType import LabelType
+from modules.classification.Ontology import Ontology
+
+class GroundTruth:
+    """ This class read a MediaEvals 2013 SED Task 1 ground truth CSV file. 
+    First column is named 'gt' and corresponds to the event id. 
+    Second column is named 'document_id' and corresponds to the photo ID """    
+    def __init__(self, pathFile):   
+        
+        # Generate a Panda's DataFrame by reading the ground truth from a CSV whose
+        # fields are separated by \t 
+        dataframe_csv = pd.read_csv('%s' % (pathFile), sep='\t')
+        
+        # For each class of event
+        self._gt_grouped_by_event = dataframe_csv.groupby('event_type')
+        
+        self.ontology = Ontology()
+
+        for semanticClass in self._gt_grouped_by_event.groups.keys():
+            self.ontology.addSemanticClass(semanticClass) 
+        
+        # Create a new Annotation
+        self.annotation = Annotation(self.ontology)
+        
+        #for eventId in self._gt_grouped_by_event.groups.keys():
+            
+            # Create a semantic class
+            #self.annotation.addSemanticClass( str(eventId) ) 
+            
+           # print 'EventID=' + str(eventId)                          
+            
+        # Iterate row by row thorugh the Pandas Dataframe            
+        for index, row in dataframe_csv.iterrows():
+            #print row['gt'], row['document_id']
+            
+            self.annotation.addInstance( str(row['event_type']), LabelType.POSITIVE, str(row['document_id']) )
+            
+   
+#        dataframe_csv.iterrows()
+#        
+#        # Index ground truth data by the document_id
+#        data_sorted_by_document_id = dataframe_csv.sort_index(by='document_id')                
+#        
+#        # Create a Numpy array with the document_id and its corresponding ground truth id
+#        series_docIdVsEventId = data_sorted_by_document_id['gt']
+#
+#        print series_docIdVsEventId
+              
+        # for x in np.nditer(series_docIdVsEventId, flags=['external_loop'], order='F'):
+        #    print x
+        
+        # For each document id
+#        for docId, eventId in series_docIdVsEventId:
+#            
+#            print 'DocID=' + str(docId)
+#            
+#            annotation.addInstance( str(eventId), LabelType.POSITIVE, str(docId) )
+        
+        # Create groups according to the ground truth label ('gt')
+        #self._gt_grouped_by_event = self._data_sorted_by_document_id.groupby('gt')
+                
+        # Store data on a Panda's DataFrame
+        #self.dataFrame = pd.DataFrame()
+        
+        #self.dataFrame = pd.merge(self.dataFrame, data, on='document_id', how='outer')
+    def get_ontology(self):
+        return self.ontology
+                            
+    def get_eventIDs(self):
+        """ Obtain a vector containing the different event IDs """
+        return self.annotation.getSemanticClassNames()
+        
+    def get_nof_photos_in_event(self, eventID):
+        """ Returns an integer with the amount of photos in the specified event """
+        return self.annotation.getNofDocsInClass(self, eventID, LabelType.POSITIVE )
+        
+    def get_photos_in_event(self, eventID ):
+        """ Obtain a vector containing the photo IDs of the event specified """
+        return self.annotaion.getDocIdsInClass( self, eventID, LabelType.POSITIVE )
+        
+    def saveGT ( self, annotationSavePathFile):
+        """ Save an annotation file with the ground truth information"""
+        pickle.dump(self.annotation, open(annotationSavePathFile, "wb"))
+             
+# Main
+if __name__ == "__main__":
+
+    # Point to the local path where the ground truth and metadata are stored
+    HOME = os.path.expanduser('~')
+    DATASETS_PATH = HOME+'/Desktop/projecte'
+    GROUND_TRUTH_FILE = 'sed2013_task2_dataset_train_gs.csv'
+
+    # Load the metadata
+    gtPath = os.path.join(DATASETS_PATH, GROUND_TRUTH_FILE)
+    groundTruth = GroundTruth(gtPath)
+    
+    # Print the amount of classes
+    print groundTruth.get_eventIDs()
+    
