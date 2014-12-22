@@ -35,7 +35,7 @@ def main():
         pathWork = os.path.join(pathHome, 'Desktop/projecte') 
         pathDirImagesBase = os.path.join(pathWork, '1_images')
         pathDirDatasets = os.path.join(pathWork, '2_datasets')
-        pathFileVocabulary = os.path.join( pathWork, '3_vocabulary','vocabulary2.p' )
+        pathFileVocabulary = os.path.join( pathWork, '3_vocabulary','vocabulary.p' )
         pathDirBofs = os.path.join(pathWork, '4_bof')
         
         # Init the BoF extractor
