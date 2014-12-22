@@ -12,9 +12,9 @@ def main(argv):
     # Define the default values for the options
     pathHome = os.path.expanduser('~')
     pathWork = os.path.join(pathHome, 'Desktop/projecte')   
-    pathDirImages = os.path.join( pathWork, '1_images', 'test' )
-    pathFileDatasetTrain = os.path.join(pathWork, '2_datasets', 'test.txt')
-    pathVocabulary = os.path.join(pathWork, '3_vocabulary', 'vocabulary2.p')
+    pathDirImages = os.path.join( pathWork, '1_images', 'train' )
+    pathFileDatasetTrain = os.path.join(pathWork, '2_datasets', 'train.txt')
+    pathVocabulary = os.path.join(pathWork, '3_vocabulary', 'vocabulary.p')
 
     _flagVerbose=False
     
