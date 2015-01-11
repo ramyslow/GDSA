@@ -6,7 +6,7 @@ In this library, we have different modules and tool for the using and developmen
 
 Main Functions, opening the Python editor:
 
-Open "Descriptor.py", run and obtain the decriptor files for each event type. For obtaining the metadata we have 4 files named: Datasets, Vocabulary, Bof and TF-IDF.
+Open "Descriptor.py", run and obtain the decriptor files for each event type. For obtaining the metadata we have 4 files named: Datasets, Vocabulary, Bof and TF-IDF. We did not execute the TF-IDF as the results in that part did not modify successfully the final results (the files .txt were all 'NonEvent')
 
 Classification, run changing the file path and obtain the file results. For creating a file with the format event_type + #tags of each type of image. Implemented with 4 files named Models, Annotation, Ontology and Detector.
 
@@ -22,7 +22,7 @@ Dins aquesta llibreria, hi ha diferents modules i tools per l'ús i desenvolupam
 
 Funcions principals, obrint l'editor de Python:
 
--Obrint el "Descriptor.py", executem i obtenim els arxius descriptors per a cada tipus d'event. Per obtindre les metadades tenim 4 arxius anomenats: Datasets, Vocabulary, Bof i TF-IDF. 
+-Obrint el "Descriptor.py", executem i obtenim els arxius descriptors per a cada tipus d'event. Per obtindre les metadades tenim 4 arxius anomenats: Datasets, Vocabulary, Bof i TF-IDF. Aquest últim a l'hora d'executar el nostre codi no l'hem utilitzat ja que no creiem que el nostre resultat millores (l'arxiu .txt contenia tot 'NonEvent')
 
 -Per la part de classificació, execitant els arxius obtenim els resultats de les metadades. Per crear un arxiu amb el format evet_type + #tags de cada imatge implementem 4 funcions anomenades Models, Annotation, Ontology i Detector. 
 
